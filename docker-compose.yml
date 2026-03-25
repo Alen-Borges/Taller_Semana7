@@ -30,6 +30,21 @@ services:
     depends_on:
       - db
 
+  auth-service:
+    build: ./ms-authservice
+    container_name: ms-authservice
+    ports:
+      - "8081:8081"
+    environment:
+      - DB_URL=jdbc:postgresql://db:5432/seguros_db
+      - DB_USERNAME=postgres
+      - DB_PASSWORD=password
+      - JPA_DDL_AUTO=update
+      - JWT_SECRET=c2VndXJvc0V2YWx1YWRvckF1dG9tYXRpemFkb1NlY3JldEtleUZvckpXVDIwMjY=
+      - JWT_EXPIRATION=86400000
+    depends_on:
+      - db
+
   evaluacion-service:
     build: ./ms-evaluacion
     container_name: ms-evaluacion
