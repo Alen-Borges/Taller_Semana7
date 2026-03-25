@@ -20,22 +20,18 @@ public class JwtService {
     @Value("${jwt.expiration}")
     private long expiration;
 
-    /**
-     * Genera un JWT con los claims: sub (username), rol, aseguradoId.
-     * Para rol GESTOR, aseguradoId puede ser null.
-     */
     public String generateToken(String username, String rol, Long aseguradoId) {
         var builder = Jwts.builder()
                 .setSubject(username)
-                .claim("rol", rol)
-                .setIssuedAt(new Date())
-                .setExpiration(new Date(System.currentTimeMillis() + expiration));
-
+                .claim("rol", rol);
         if (aseguradoId != null) {
             builder.claim("aseguradoId", aseguradoId);
         }
-
-        return builder.signWith(getSigningKey(), SignatureAlgorithm.HS256).compact();
+        return builder
+                .setIssuedAt(new Date())
+                .setExpiration(new Date(System.currentTimeMillis() + expiration))
+                .signWith(getSigningKey(), SignatureAlgorithm.HS256)
+                .compact();
     }
 
     public String extractUsername(String token) {
