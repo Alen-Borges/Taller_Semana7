@@ -19,10 +19,13 @@ public class SecurityConfig {
                         .requestMatchers("/api/v1/asegurados/**").permitAll()
                         .requestMatchers("/api/v1/vehiculos/**").permitAll()
                         .requestMatchers("/api/v1/polizas/**").permitAll()
+                        .requestMatchers("/api/v1/reclamos/**").permitAll()  
+                        .requestMatchers("/uploads/**").permitAll()
+                        .requestMatchers("/error").permitAll()
                         .anyRequest().authenticated()
-
                 );
 
         return http.build();
     }
 }
+
