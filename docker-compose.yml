@@ -13,6 +13,21 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
+  api-gateway:
+    build: ./ms-apigateway
+    container_name: ms-apigateway
+    ports:
+      - "8080:8080"
+    environment:
+      - AUTH_SERVICE_URL=http://ms-authservice:8081
+      - CORE_SERVICE_URL=http://ms-coreservice:8082
+      - EVALUACION_SERVICE_URL=http://ms-evaluacion:8083
+      - JWT_SECRET=c2VndXJvc0V2YWx1YWRvckF1dG9tYXRpemFkb1NlY3JldEtleUZvckpXVDIwMjY=
+    depends_on:
+      - auth-service
+      - core-service
+      - evaluacion-service
+
   core-service:
     build: ./ms-coreservice
     container_name: ms-coreservice
