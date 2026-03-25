@@ -1,0 +1,16 @@
+server:
+  port: ${SERVER_PORT:8080}
+
+spring:
+  application:
+    name: ms-apigateway
+
+# URLs de los microservicios downstream
+services:
+  auth-url:        ${AUTH_SERVICE_URL:http://localhost:8081}
+  core-url:        ${CORE_SERVICE_URL:http://localhost:8082}
+  evaluacion-url:  ${EVALUACION_SERVICE_URL:http://localhost:8083}
+
+# JWT — mismo secret que ms-authservice para validar la firma HS256
+jwt:
+  secret: ${JWT_SECRET:c2VndXJvc0V2YWx1YWRvckF1dG9tYXRpemFkb1NlY3JldEtleUZvckpXVDIwMjY=}

@@ -1,0 +1,111 @@
+
+services:
+
+  # ─── PostgreSQL ─────────────────────────────────────────────────────────────
+  db:
+    image: postgres:15-alpine
+    container_name: postgres-seguros
+    environment:
+      POSTGRES_DB: seguros_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d seguros_db"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 20s
+    networks:
+      - backend
+
+  # ─── Auth Service ────────────────────────────────────────────────────────────
+  auth-service:
+    build: ./ms-authservice
+    container_name: ms-authservice
+    ports:
+      - "8081:8081"
+    environment:
+      - DB_URL=jdbc:postgresql://db:5432/seguros_db
+      - DB_USERNAME=postgres
+      - DB_PASSWORD=password
+      - JPA_DDL_AUTO=update
+      - JWT_SECRET=c2VndXJvc0V2YWx1YWRvckF1dG9tYXRpemFkb1NlY3JldEtleUZvckpXVDIwMjY=
+      - JWT_EXPIRATION=86400000
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: on-failure
+    networks:
+      - backend
+
+  # ─── Core Service ────────────────────────────────────────────────────────────
+  core-service:
+    build: ./ms-coreservice
+    container_name: ms-coreservice
+    ports:
+      - "8082:8082"
+    environment:
+      - DB_URL=jdbc:postgresql://db:5432/seguros_db
+      - DB_USERNAME=postgres
+      - DB_PASSWORD=password
+      - JPA_DDL_AUTO=update
+      - STORAGE_LOCATION=/app/uploads
+      - EVALUACION_SERVICE_URL=http://ms-evaluacion:8083
+      - JWT_SECRET=c2VndXJvc0V2YWx1YWRvckF1dG9tYXRpemFkb1NlY3JldEtleUZvckpXVDIwMjY=
+    volumes:
+      - uploads_data:/app/uploads
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: on-failure
+    networks:
+      - backend
+
+  # ─── Evaluacion Service ──────────────────────────────────────────────────────
+  evaluacion-service:
+    build: ./ms-evaluacion
+    container_name: ms-evaluacion
+    ports:
+      - "8083:8083"
+    environment:
+      - DB_URL=jdbc:postgresql://db:5432/seguros_db
+      - DB_USERNAME=postgres
+      - DB_PASSWORD=password
+      - JPA_DDL_AUTO=update
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: on-failure
+    networks:
+      - backend
+
+  # ─── API Gateway ─────────────────────────────────────────────────────────────
+  api-gateway:
+    build: ./ms-apigateway
+    container_name: ms-apigateway
+    ports:
+      - "8080:8080"
+    environment:
+      - AUTH_SERVICE_URL=http://ms-authservice:8081
+      - CORE_SERVICE_URL=http://ms-coreservice:8082
+      - EVALUACION_SERVICE_URL=http://ms-evaluacion:8083
+      - JWT_SECRET=c2VndXJvc0V2YWx1YWRvckF1dG9tYXRpemFkb1NlY3JldEtleUZvckpXVDIwMjY=
+    depends_on:
+      - auth-service
+      - core-service
+      - evaluacion-service
+    restart: on-failure
+    networks:
+      - backend
+
+volumes:
+  postgres_data:
+  uploads_data:
+
+networks:
+  backend:
+    driver: bridge
