@@ -22,11 +22,14 @@ public class AuthService implements UserDetailsService {
     private final JwtService jwtService;
     private final PasswordEncoder passwordEncoder;
 
-    // ─── Login ────────────────────────────────────────────────────────────────
-
     public LoginResponseDTO login(LoginRequestDTO request) {
-        Usuario usuario = usuarioRepository.findByUsername(request.getUsername())
-                .orElseThrow(() -> new BadCredentialsException("Credenciales inválidas"));
+        String credencial = request.getUsername();
+
+        Usuario usuario = credencial.contains("@")
+                ? usuarioRepository.findByEmail(credencial)
+                        .orElseThrow(() -> new BadCredentialsException("Credenciales inválidas"))
+                : usuarioRepository.findByUsername(credencial)
+                        .orElseThrow(() -> new BadCredentialsException("Credenciales inválidas"));
 
         if (!passwordEncoder.matches(request.getPassword(), usuario.getPassword())) {
             throw new BadCredentialsException("Credenciales inválidas");
@@ -42,21 +45,21 @@ public class AuthService implements UserDetailsService {
                 .build();
     }
 
-    // ─── Registro ─────────────────────────────────────────────────────────────
-
     public void register(RegisterRequestDTO request) {
         if (usuarioRepository.existsByUsername(request.getUsername())) {
             throw new IllegalArgumentException("El username '" + request.getUsername() + "' ya está en uso");
+        }
+        if (request.getEmail() != null && usuarioRepository.existsByEmail(request.getEmail())) {
+            throw new IllegalArgumentException("El correo '" + request.getEmail() + "' ya está en uso");
         }
 
         usuarioRepository.save(Usuario.builder()
                 .username(request.getUsername())
                 .password(passwordEncoder.encode(request.getPassword()))
+                .email(request.getEmail())
                 .rol(request.getRol())
                 .build());
     }
-
-    // ─── UserDetailsService (requerido por Spring Security) ──────────────────
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
