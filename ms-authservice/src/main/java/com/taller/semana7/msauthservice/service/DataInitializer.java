@@ -27,19 +27,20 @@ public class DataInitializer implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) {
-        crearSiNoExiste("gestor01", "gestor123", Rol.GESTOR, null);
-        crearSiNoExiste("asegurado01", "aseg123", Rol.ASEGURADO, 1L);
+        crearSiNoExiste("gestor01", "gestor123", "gestor@mail.com", Rol.GESTOR, null);
+        crearSiNoExiste("asegurado01", "aseg123", "asegurado@mail.com", Rol.ASEGURADO, 1L);
     }
 
-    private void crearSiNoExiste(String username, String password, Rol rol, Long aseguradoId) {
+    private void crearSiNoExiste(String username, String password, String email, Rol rol, Long aseguradoId) {
         if (!usuarioRepository.existsByUsername(username)) {
             usuarioRepository.save(Usuario.builder()
                     .username(username)
                     .password(passwordEncoder.encode(password))
+                    .email(email)
                     .rol(rol)
                     .aseguradoId(aseguradoId)
                     .build());
-            log.info("Usuario creado: {} ({}) aseguradoId={}", username, rol, aseguradoId);
+            log.info("Usuario creado: {} ({}) email={} aseguradoId={}", username, rol, email, aseguradoId);
         }
     }
 }

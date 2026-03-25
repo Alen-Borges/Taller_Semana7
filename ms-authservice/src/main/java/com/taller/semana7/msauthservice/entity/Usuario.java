@@ -28,4 +28,7 @@ public class Usuario {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Rol rol;
+
+    @Column(name = "asegurado_id")
+    private Long aseguradoId;
 }

@@ -20,8 +20,8 @@ public class JwtService {
     @Value("${jwt.expiration}")
     private long expiration;
 
-    public String generateToken(String username, String rol) {
-        return Jwts.builder()
+    public String generateToken(String username, String rol, Long aseguradoId) {
+        var builder = Jwts.builder()
                 .setSubject(username)
                 .claim("rol", rol);
         if (aseguradoId != null) {
@@ -29,13 +29,9 @@ public class JwtService {
         }
         return builder
                 .setIssuedAt(new Date())
-                .setExpiration(new Date(System.currentTimeMillis() + expiration));
-
-        if (aseguradoId != null) {
-            builder.claim("aseguradoId", aseguradoId);
-        }
-
-        return builder.signWith(getSigningKey(), SignatureAlgorithm.HS256).compact();
+                .setExpiration(new Date(System.currentTimeMillis() + expiration))
+                .signWith(getSigningKey(), SignatureAlgorithm.HS256)
+                .compact();
     }
 
     public String extractUsername(String token) {
