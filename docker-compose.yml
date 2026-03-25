@@ -9,22 +9,27 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: password
     ports:
-      - "5432:5432"
+      - "5433:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
-  app:
-    build: .
-    container_name: application-seguros
+  core-service:
+    build: ./ms-coreservice
+    container_name: ms-coreservice
     ports:
-      - "8080:8080"
+      - "8082:8082"
     environment:
       - DB_URL=jdbc:postgresql://db:5432/seguros_db
       - DB_USERNAME=postgres
       - DB_PASSWORD=password
       - JPA_DDL_AUTO=update
+      - STORAGE_LOCATION=/app/uploads
+      - EVALUACION_SERVICE_URL=http://ms-evaluacion:8083
+    volumes:
+      - uploads_data:/app/uploads
     depends_on:
       - db
 
 volumes:
   postgres_data:
+  uploads_data:
