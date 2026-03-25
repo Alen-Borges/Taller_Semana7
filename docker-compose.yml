@@ -30,6 +30,19 @@ services:
     depends_on:
       - db
 
+  evaluacion-service:
+    build: ./ms-evaluacion
+    container_name: ms-evaluacion
+    ports:
+      - "8083:8083"
+    environment:
+      - DB_URL=jdbc:postgresql://db:5432/seguros_db
+      - DB_USERNAME=postgres
+      - DB_PASSWORD=password
+      - JPA_DDL_AUTO=update
+    depends_on:
+      - db
+
 volumes:
   postgres_data:
   uploads_data:
