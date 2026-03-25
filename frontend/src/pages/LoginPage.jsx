@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 import { useAuth } from '../context/AuthContext'
 import { authService } from '../services/authService'
+import { aseguradoService } from '../services/aseguradoService'
 import { getErrorMessage } from '../utils/helpers'
 import Button from '../components/ui/Button'
 
@@ -23,8 +24,25 @@ export default function LoginPage() {
     try {
       const res = await authService.login(username, password)
       const data = res.data || res
-      login(data.token, { username: data.username, rol: data.rol })
-      toast.success(`Bienvenido, ${data.username}`)
+      
+      let finalName = data.username
+      try {
+        if (data.rol === 'ASEGURADO' && data.token) {
+          const payload = JSON.parse(atob(data.token.split('.')[1]))
+          if (payload.aseguradoId) {
+            const aseRes = await aseguradoService.obtener(payload.aseguradoId)
+            const aseData = aseRes.data || aseRes
+            if (aseData && aseData.nombre) {
+              finalName = aseData.apellido ? `${aseData.nombre} ${aseData.apellido}` : aseData.nombre
+            }
+          }
+        }
+      } catch (e) {
+        console.error("Error obteniendo el nombre real:", e)
+      }
+
+      login(data.token, { username: finalName, rol: data.rol })
+      toast.success(`Bienvenido, ${finalName}`)
     } catch (err) {
       setApiError(getErrorMessage(err))
     } finally {
@@ -65,7 +83,7 @@ export default function LoginPage() {
 
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
             <div>
-              <label className="form-label">Usuario</label>
+              <label className="form-label">Usuario o Correo</label>
               <div className="relative">
                 <div className="absolute inset-y-0 left-3 flex items-center pointer-events-none text-slate-400">
                   <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
@@ -76,7 +94,7 @@ export default function LoginPage() {
                   type="text"
                   placeholder="ejemplo@evaluador.com"
                   className={`form-input pl-9 ${errors.username ? 'error' : ''}`}
-                  {...register('username', { required: 'El usuario es obligatorio' })}
+                  {...register('username', { required: 'El usuario o correo es obligatorio' })}
                 />
               </div>
               {errors.username && <p className="form-error">{errors.username.message}</p>}

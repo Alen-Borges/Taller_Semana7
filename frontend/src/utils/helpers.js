@@ -38,6 +38,7 @@ export const estadoPolizaColor = (estado) => {
 export const getErrorMessage = (error) => {
   if (!error?.response) return 'Error de conexión. Verifica que el servidor esté activo.'
   const data = error.response.data
+  if (data?.error) return data.error
   if (data?.message) return data.message
   if (data?.errors?.length) return data.errors.join(', ')
   return `Error ${error.response.status}`
