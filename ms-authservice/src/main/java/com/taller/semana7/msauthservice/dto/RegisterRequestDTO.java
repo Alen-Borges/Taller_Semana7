@@ -22,4 +22,6 @@ public class RegisterRequestDTO {
 
     @NotNull(message = "El rol es obligatorio (GESTOR o ASEGURADO)")
     private Rol rol;
+
+    private Long aseguradoId;
 }

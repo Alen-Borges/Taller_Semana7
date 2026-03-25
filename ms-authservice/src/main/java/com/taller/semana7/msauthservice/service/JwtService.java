@@ -20,10 +20,14 @@ public class JwtService {
     @Value("${jwt.expiration}")
     private long expiration;
 
-    public String generateToken(String username, String rol) {
-        return Jwts.builder()
+    public String generateToken(String username, String rol, Long aseguradoId) {
+        var builder = Jwts.builder()
                 .setSubject(username)
-                .claim("rol", rol)
+                .claim("rol", rol);
+        if (aseguradoId != null) {
+            builder.claim("aseguradoId", aseguradoId);
+        }
+        return builder
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + expiration))
                 .signWith(getSigningKey(), SignatureAlgorithm.HS256)
