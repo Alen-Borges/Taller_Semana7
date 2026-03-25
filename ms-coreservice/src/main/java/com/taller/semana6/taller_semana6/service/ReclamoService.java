@@ -34,18 +34,7 @@ public class ReclamoService {
     private final FileStorageService fileStorageService;
     private final EvaluacionServiceClient evaluacionServiceClient;
 
-    // ══════════════════════════════════════════════════════════════════════
-    //  HU-007: Registrar Reclamo
-    //  Flujo (spec §8.1):
-    //  1. Validar póliza existe, ACTIVA y fecha dentro de vigencia
-    //  2. Validar mínimo 1 fotografía
-    //  3. Generar número de seguimiento REC-YYYY-NNN
-    //  4. Guardar reclamo como REGISTRADO
-    //  5. Guardar fotografías
-    //  6. Llamar evaluacion-service vía REST (POST /api/v1/evaluar)
-    //  7. Actualizar estado con resultado
-    //  8. Retornar HTTP 201
-    // ══════════════════════════════════════════════════════════════════════
+    
 
     @Transactional
     public ReclamoResponseDTO registrarReclamo(ReclamoRequestDTO dto,

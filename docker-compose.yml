@@ -102,6 +102,18 @@ services:
     networks:
       - backend
 
+  # ─── Frontend ────────────────────────────────────────────────────────────────
+  frontend:
+    build: ./frontend
+    container_name: siniestros-frontend
+    ports:
+      - "4000:80"
+    depends_on:
+      - api-gateway
+    restart: on-failure
+    networks:
+      - backend
+
 volumes:
   postgres_data:
   uploads_data:
