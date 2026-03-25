@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.reactive.function.client.WebClientResponseException;
 import reactor.core.publisher.Mono;
@@ -84,7 +85,7 @@ public class ProxyController {
         return client.method(request.getMethod())
                 .uri(uri)
                 .headers(headers -> copyHeaders(request.getHeaders(), headers))
-                .body(request.getBody(), byte[].class)
+                .body(BodyInserters.fromDataBuffers(request.getBody()))
                 .retrieve()
                 .toEntity(byte[].class)
                 .onErrorResume(WebClientResponseException.class, ex ->

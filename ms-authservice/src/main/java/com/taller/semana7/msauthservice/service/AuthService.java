@@ -32,7 +32,7 @@ public class AuthService implements UserDetailsService {
             throw new BadCredentialsException("Credenciales inválidas");
         }
 
-        String token = jwtService.generateToken(usuario.getUsername(), usuario.getRol().name());
+        String token = jwtService.generateToken(usuario.getUsername(), usuario.getRol().name(), usuario.getAseguradoId());
 
         return LoginResponseDTO.builder()
                 .token(token)
