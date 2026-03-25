@@ -1,6 +1,8 @@
 package com.taller.semana6.taller_semana6.service;
 
+import com.taller.semana6.taller_semana6.client.AuthServiceClient;
 import com.taller.semana6.taller_semana6.dto.AseguradoDTO;
+import com.taller.semana6.taller_semana6.dto.AuthRegisterRequestDTO;
 import com.taller.semana6.taller_semana6.entity.Asegurado;
 import com.taller.semana6.taller_semana6.exception.BadRequestException;
 import com.taller.semana6.taller_semana6.exception.ResourceNotFoundException;
@@ -17,6 +19,7 @@ import java.util.stream.Collectors;
 public class AseguradoService {
 
     private final AseguradoRepository aseguradoRepository;
+    private final AuthServiceClient authServiceClient;
 
     @Transactional
     public AseguradoDTO registrarAsegurado(AseguradoDTO dto) {
@@ -37,6 +40,14 @@ public class AseguradoService {
                 .build();
 
         Asegurado guardado = aseguradoRepository.save(asegurado);
+
+        authServiceClient.registrarUsuario(AuthRegisterRequestDTO.builder()
+                .username(dto.getNumeroIdentificacion())
+                .password(dto.getNumeroIdentificacion())
+                .email(dto.getCorreoElectronico())
+                .rol("ASEGURADO")
+                .build());
+
         return mapToDTO(guardado);
     }
 
