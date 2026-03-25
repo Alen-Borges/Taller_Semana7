@@ -1,6 +1,7 @@
 package com.taller.semana7.msauthservice.dto;
 
 import com.taller.semana7.msauthservice.entity.Rol;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -16,6 +17,11 @@ public class RegisterRequestDTO {
     @Size(min = 6, message = "La contraseña debe tener mínimo 6 caracteres")
     private String password;
 
+    @Email(message = "Debe ser un correo electrónico válido")
+    private String email;
+
     @NotNull(message = "El rol es obligatorio (GESTOR o ASEGURADO)")
     private Rol rol;
+
+    private Long aseguradoId;
 }
