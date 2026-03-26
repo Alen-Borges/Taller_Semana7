@@ -192,50 +192,14 @@ El MVP cubre desde el registro de datos (asegurados, vehículos, pólizas) hasta
 ### 10.3 Estructura de repositorios
 
 Se realizara repositorios independientes para cada tipo de prueba, estrucutrados de la siguiente manera:
- 
-**Pruebas funcionales con SerenityBDD + Cucumber**
-```
-qa-siniestros-funcional/
-├── src/test/resources/features/
-│   ├── HU001_registro_asegurado.feature
-│   ├── HU002_consultar_asegurados.feature
-│   ├── HU003_registrar_vehiculo.feature
-│   ├── HU004_consultar_vehiculos.feature
-│   ├── HU005_registrar_poliza.feature
-│   ├── HU006_consultar_polizas.feature
-│   ├── HU007_registro_reclamo.feature
-│   ├── HU009_evaluacion_deducible_monto.feature
-│   └── HU013_consulta_estado_reclamo.feature
-├── src/test/java/steps/
-├── serenity.conf
-└── pom.xml
- 
-```
 
-**Pruebas de API con Karate DSL**
-```
-qa-siniestros-api/                
-├── src/test/java/
-│   ├── asegurados/
-│   ├── vehiculos/
-│   ├── polizas/
-│   ├── reclamos/
-│   ├── evaluacion/
-│   └── karate-config.js
-└── pom.xml
- 
-```
 
-**Pruebas de rendimiento con k6**
-```
-qa-siniestros-performance/       
-├── scripts/
-│   ├── consulta_asegurados.js
-│   ├── consulta_vehiculos.js
-│   ├── consulta_polizas.js
-│   └── consulta_estado_reclamo.js
-└── README.md
-```
+- **Repositorio de pruebas funcionales:** Contiene los escenarios de aceptación definidos en Gherkin, su automatización y la configuración del framework SerenityBDD + Cucumber.
+
+- **Repositorio de pruebas de API:** Incluye la automatización de pruebas sobre servicios REST, validaciones de contrato y lógica de negocio mediante Karate DSL.
+
+- **Repositorio de pruebas de rendimiento:** Contiene los scripts de carga desarrollados en k6 para evaluar el comportamiento de los servicios bajo diferentes niveles de concurrencia.
+ 
 
 ## 11. Riesgos y Contingencias
  
