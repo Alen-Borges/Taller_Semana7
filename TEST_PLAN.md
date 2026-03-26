@@ -148,14 +148,15 @@ El MVP cubre desde el registro de datos (asegurados, vehículos, pólizas) hasta
  
 ### 10.2 Entregables finales del ciclo
  
-| Entregable | Descripción |
-|------------|-------------|
-| **Repositorio de pruebas funcionales** | Proyecto SerenityBDD + Cucumber con los `.feature` y steps. |
-| **Repositorio de pruebas de API** | Proyecto Karate con los `.feature` de contrato y validación de endpoints. Repositorio independiente. |
-| **Scripts de rendimiento** | Archivos `.js` de k6 para los escenarios de carga. Pueden vivir en el mismo repo de pruebas de API o en uno aparte. |
-| **Reporte consolidado de ejecución** | Reporte .md con: total de casos ejecutados, pasados, fallidos, bloqueados; defectos abiertos por severidad; cobertura por HU. |
-| 
+### Entregables
 
+- **Repositorio de pruebas funcionales:** Proyecto en SerenityBDD + Cucumber con los archivos `.feature` y sus steps.
+
+- **Repositorio de pruebas de API:** Proyecto en Karate con `.feature` para contratos y validación de endpoints. Repositorio independiente.
+
+- **Scripts de rendimiento:** Archivos `.js` de k6 para escenarios de carga. Pueden estar en el repo de API o en uno separado.
+
+- **Reporte consolidado de ejecución:** Documento `.md` con resumen de ejecución (casos totales, pasados, fallidos, bloqueados), defectos por severidad y cobertura por HU.
  
 ### 10.3 Estructura de repositorios
 
