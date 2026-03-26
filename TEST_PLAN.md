@@ -51,15 +51,17 @@ El MVP cubre desde el registro de datos (asegurados, vehículos, pólizas) hasta
 
 ### 4.1 Niveles de pruebas
 
- **Pruebas unitarias:** Validaciones de servicios de negocio, cálculos y reglas aisladas. Para HU-009 esto es especialmente crítico: el cálculo del deducible involucra tres variables (10% del monto del siniestro, 1% del valor asegurado, $200 fijo).
- 
-**Pruebas de integración API:** Validación end-to-end de cada endpoint REST, incluyendo persistencia, respuestas HTTP, estructura JSON y manejo de errores. Para HU-009 se valida que el motor de reglas procese correctamente el reclamo después de su registro y que el estado final (DESCARTADO, continúa a siguiente fase, EN REVISIÓN MANUAL) sea consistente con las reglas. Framework: **Karate DSL**.
- 
-**Pruebas funcionales:** Escenarios de aceptación escritos en Gherkin y automatizados con **SerenityBDD + Cucumber**. Cada historia de usuario tiene sus escenarios definidos y sus casos de prueba listos para ser implementados como steps.
- 
-**Pruebas de rendimiento:** Escenarios de carga básica sobre endpoints de consulta con **k6**. Se medirán tiempos de respuesta bajo carga concurrente y se establecerá una línea base de rendimiento.
- 
-**Pruebas exploratorias:** Sesiones manuales orientadas a casos límite, formatos inesperados, combinaciones de datos y flujos no contemplados en los escenarios automatizados. Para HU-009 se prestará especial atención a montos en el borde exacto del deducible y del 20% del valor asegurado.
+### Estrategia de Pruebas
+
+- **Pruebas unitarias:** Validan lógica de negocio y reglas aisladas. En HU-009, cálculo del deducible (10% siniestro, 1% valor asegurado, $200).
+
+- **Pruebas de integración API:** Validan endpoints REST (persistencia, respuestas, errores). En HU-009, procesamiento del reclamo y estado final. Framework: Karate DSL.
+
+- **Pruebas funcionales:** Escenarios en Gherkin automatizados con SerenityBDD + Cucumber por historia de usuario.
+
+- **Pruebas de rendimiento:** Pruebas de carga en endpoints con k6, midiendo tiempos de respuesta.
+
+- **Pruebas exploratorias:** Casos límite y datos no contemplados, especialmente valores borde en HU-009.
 
 ### 4.2 Cobertura por historia
  
@@ -79,16 +81,16 @@ El MVP cubre desde el registro de datos (asegurados, vehículos, pólizas) hasta
 ### 5.1 Criterios de entrada (para iniciar pruebas de una HU)
  
 - El código de la HU está completo y mergeado en la rama de desarrollo.
-- El entorno de pruebas está levantado y accesible (Docker + PostgreSQL).
+- El entorno de pruebas está levantado y accesible.
 - Las pruebas unitarias del desarrollador pasan al 100%.
-- El endpoint está documentado y responde al smoke test (200 en health check).
+- El endpoint está documentado y responde.
 - Los datos de prueba están cargados o existe un script de seed disponible.
 - La HU tiene criterios de aceptación y casos de prueba definidos.
  
 ### 5.2 Criterios de salida (para dar una HU por probada)
  
 - Todos los casos de prueba automatizados pasan (Serenity + Cucumber y Karate).
-- Para HU-009: todos los escenarios de la matriz de deducible pasan y los valores límite están cubiertos sin discrepancia.
+
 - Las evidencias están generadas: reporte de Serenity BDD, reporte de Karate, capturas o video de pruebas exploratorias.
 - El reporte de ejecución está actualizado en el repositorio de pruebas.
 
@@ -222,7 +224,28 @@ qa-siniestros-performance/
 | RPY-02 | Desarrollo de las HU no está completo al iniciar el microsprint correspondiente | Media | Alto | Criterios de entrada estrictos. Si la HU no cumple, se pospone al siguiente microsprint y se reajusta el cronograma. |
 | RPY-03 | Defectos críticos en microsprint 1 consumen tiempo del microsprint 2 | Media | Medio | Priorización: los defectos bloqueantes se corrigen antes de avanzar. |
 
-
+## 12. Definiciones y Convenciones
+ 
+**Severidad de defectos:**
+- **Crítica:** Funcionalidad bloqueada, datos corruptos, fallo de seguridad, error de cálculo financiero (deducible/monto). Requiere corrección inmediata.
+- **Alta:** Funcionalidad parcialmente afectada. Se corrige dentro del microsprint.
+- **Media:** Funcionalidad afectada. Se planifica para corrección antes del cierre del ciclo.
+- **Baja:** Cosmético, mejora de UX, mensaje poco claro. Se registra y se prioriza en backlog.
+ 
+**Formato de reporte de bug:**
+ 
+```
+ID:           BUG-XXX
+HU:           HU-00X
+Severidad:    Crítica | Alta | Media | Baja
+Título:       [Descripción breve]
+Precondiciones: [Estado del sistema antes de reproducir]
+Pasos:        1. ... 2. ... 3. ...
+Resultado esperado: [Según criterio de aceptación]
+Resultado obtenido: [Lo que ocurrió]
+Evidencia:    [Captura / video / log de Serenity o Karate]
+Entorno:      
+```
 
 
  
