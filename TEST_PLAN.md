@@ -134,6 +134,18 @@ El MVP cubre desde el registro de datos (asegurados, vehículos, pólizas) hasta
 
 ## 9. Cronograma
 
+### Microsprint 1 — Datos maestros: Asegurados y Vehículos (Días 1–2)
+ **SP cubiertos:** 10 
+| HU | Nombre | SP | Actividades QA |
+|----|--------|----|----------------|
+| HU-001 | Registro de asegurado | 3 | Automatización funcional (SerenityBDD + Cucumber), pruebas de API (Karate), pruebas exploratorias |
+| HU-002 | Consultar asegurados | 2 | Pruebas de API (Karate), pruebas de rendimiento (k6) |
+| HU-003 | Registrar vehículo | 3 | Automatización funcional (SerenityBDD + Cucumber), pruebas de API (Karate), pruebas exploratorias |
+| HU-004 | Consultar vehículos | 2 | Pruebas de API (Karate), pruebas de rendimiento (k6) |
+| — | Reporte microsprint 1 | — | Generación de reportes SerenityBDD, Karate y k6. Registro de defectos encontrados |
+
+
+
 ## 10. Entregables de Prueba
  
 ### 10.1 Artefactos por microsprint
