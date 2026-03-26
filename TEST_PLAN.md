@@ -154,6 +154,16 @@ El MVP cubre desde el registro de datos (asegurados, vehículos, pólizas) hasta
 | — | Re-test de defectos | — | Re-verificación de bugs corregidos del microsprint 1 |
 | — | Reporte microsprint 2 | — | Generación de reportes SerenityBDD, Karate y k6. Actualización de registro de defectos |
 
+### Microsprint 3 — Reclamos, Motor de Reglas de Monto y Consulta de Estado (Días 5–6)
+ 
+| HU | Nombre | SP | Actividades QA |
+|----|--------|----|----------------|
+| HU-007 | Registro de reclamo de siniestro | 5 | Automatización funcional (SerenityBDD + Cucumber), pruebas de API con multipart (Karate), pruebas exploratorias de formatos de archivo y tamaños |
+| HU-009 | Evaluación por reglas de deducible y monto | 5 | Automatización funcional (SerenityBDD + Cucumber), pruebas de API del motor de reglas (Karate), pruebas exploratorias de valores límite del deducible y del 20% |
+| HU-013 | Consulta de estado de reclamo por el asegurado | 3 | Automatización funcional (SerenityBDD + Cucumber), pruebas de API (Karate), pruebas de rendimiento (k6), pruebas exploratorias |
+| — | Reporte final del ciclo | — | Reporte consolidado de ejecución, métricas finales y registro completo de defectos |
+ 
+**SP cubiertos:** 13 
 
 ## 10. Entregables de Prueba
  
