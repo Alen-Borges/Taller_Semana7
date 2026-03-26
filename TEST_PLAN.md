@@ -11,10 +11,9 @@
 | **Fecha** | 26/03/2026 |
 
 ### Equipo
- Rol | Responsable |
-|-----|-------------|
-| QA | Jean Pierre Villacís |
-| Dev| Alexis Borges|
+
+- **QA:** Jean Pierre Villacis
+- **Dev:** Alexis Borges
 
 ## 2. Contexto
 El sistema a probar es una plataforma de evaluación automatizada de siniestros de autos. Su propósito de negocio es transformar el proceso manual de gestión de reclamos, que hoy toma varios días, en un flujo donde los casos de bajo riesgo se resuelven en minutos mediante reglas de negocio, y los casos con indicadores de riesgo se escalan a un gestor humano que toma la decisión final.
@@ -243,5 +242,5 @@ Evidencia:    [Captura / video / log de Serenity o Karate]
 Entorno:      
 ```
 
-
+**Redactado por:** Jean Pierre Villacis
  
