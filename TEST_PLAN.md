@@ -154,6 +154,73 @@ El MVP cubre desde el registro de datos (asegurados, vehículos, pólizas) hasta
 | **Reporte consolidado de ejecución** | Reporte .md con: total de casos ejecutados, pasados, fallidos, bloqueados; defectos abiertos por severidad; cobertura por HU. |
 | 
 
+ 
+### 10.3 Estructura de repositorios
+
+Se realizara repositorios independientes para cada tipo de prueba, estrucutrados de la siguiente manera:
+ 
+**Pruebas funcionales con SerenityBDD + Cucumber**
+```
+qa-siniestros-funcional/
+├── src/test/resources/features/
+│   ├── HU001_registro_asegurado.feature
+│   ├── HU002_consultar_asegurados.feature
+│   ├── HU003_registrar_vehiculo.feature
+│   ├── HU004_consultar_vehiculos.feature
+│   ├── HU005_registrar_poliza.feature
+│   ├── HU006_consultar_polizas.feature
+│   ├── HU007_registro_reclamo.feature
+│   ├── HU009_evaluacion_deducible_monto.feature
+│   └── HU013_consulta_estado_reclamo.feature
+├── src/test/java/steps/
+├── serenity.conf
+└── pom.xml
+ 
+```
+
+**Pruebas de API con Karate DSL**
+```
+qa-siniestros-api/                
+├── src/test/java/
+│   ├── asegurados/
+│   ├── vehiculos/
+│   ├── polizas/
+│   ├── reclamos/
+│   ├── evaluacion/
+│   └── karate-config.js
+└── pom.xml
+ 
+```
+
+**Pruebas de rendimiento con k6**
+```
+qa-siniestros-performance/       
+├── scripts/
+│   ├── consulta_asegurados.js
+│   ├── consulta_vehiculos.js
+│   ├── consulta_polizas.js
+│   └── consulta_estado_reclamo.js
+└── README.md
+```
+
+## 11. Riesgos y Contingencias
+ 
+### 11.1 Riesgos de producto
+ 
+| ID | Riesgo | Probabilidad | Impacto | Mitigación |
+|----|--------|:------------:|:-------:|------------|
+| RP-01 | Reglas de validación implementadas no coinciden con los criterios de aceptación definidos en las HU | Media | Alto | Revisión conjunta QA + DEV de criterios de aceptación antes de cada microsprint. |
+| RP-02 | Errores en valores límite (montos en cero, fechas exactas en el borde de vigencia, placas al límite del formato) | Alta | Alto | Casos de prueba específicos para boundary values en cada HU. Los CP ya contemplan estos escenarios. |
+| RP-03 | Datos de prueba insuficientes o no representativos para detectar defectos reales | Media | Medio | Uso de datos realistas (nombres, cédulas, placas, montos representativos). |
+
+
+### 11.2 Riesgos de proyecto
+ 
+| ID | Riesgo | Probabilidad | Impacto | Mitigación |
+|----|--------|:------------:|:-------:|------------|
+| RPY-01 | Entorno de pruebas inestable o no disponible al iniciar un microsprint | Media | Alto | Smoke test obligatorio al inicio de cada microsprint. Documentar el proceso de levantamiento para que cualquier miembro lo ejecute. |
+| RPY-02 | Desarrollo de las HU no está completo al iniciar el microsprint correspondiente | Media | Alto | Criterios de entrada estrictos. Si la HU no cumple, se pospone al siguiente microsprint y se reajusta el cronograma. |
+| RPY-03 | Defectos críticos en microsprint 1 consumen tiempo del microsprint 2 | Media | Medio | Priorización: los defectos bloqueantes se corrigen antes de avanzar. |
 
 
 
