@@ -92,6 +92,69 @@ El MVP cubre desde el registro de datos (asegurados, vehículos, pólizas) hasta
 - Las evidencias están generadas: reporte de Serenity BDD, reporte de Karate, capturas o video de pruebas exploratorias.
 - El reporte de ejecución está actualizado en el repositorio de pruebas.
 
+## 6. Entorno de Pruebas
+| Componente | Configuración |
+|------------|---------------|
+| **Aplicación** | Spring Boot (Java 17+) en contenedor Docker |
+| **Base de datos** | PostgreSQL en contenedor Docker (docker-compose) |
+| **Orquestación** | docker-compose.yml con servicios app + db |
+| **Datos de prueba** | Script SQL de seed con asegurados, vehículos, pólizas y reclamos predefinidos |
+| **Autenticación** | Tokens JWT generados con credenciales de prueba (rol GESTOR y rol ASEGURADO) |
+
+## 7. Herramientas
+ 
+| Herramienta | Propósito | Alcance |
+|-------------|-----------|---------|
+| **SerenityBDD + Cucumber** | Automatización de pruebas funcionales (BDD) | Escenarios de aceptación de cada HU en Gherkin |
+| **Karate DSL** | Pruebas de integración y contrato de API | Validación de endpoints REST, estructura JSON, códigos HTTP |
+| **k6** | Pruebas de rendimiento y carga | Endpoints de consulta (GET) bajo concurrencia |
+| **Docker + docker-compose** | Entorno de pruebas reproducible | Levantar app + BD idéntico en cada ejecución |
+| **Git** | Control de versiones de scripts de prueba | Repositorios independientes de pruebas |
+| **GitHub Issues** | Gestión de defectos e incidencias | Reporte, seguimiento y priorización de bugs |
+
+## 8. Roles y Responsabilidades
+ 
+### QA 
+ 
+- Diseño del plan de pruebas y matrices de datos.
+- Implementación de escenarios automatizados (SerenityBDD + Cucumber).
+- Implementación de pruebas de API (Karate).
+- Diseño y ejecución de pruebas de rendimiento (k6).
+- Ejecución de pruebas exploratorias.
+- Reporte de bugs con evidencia (pasos, datos, resultado esperado vs obtenido).
+- Validación de criterios de entrada antes de iniciar cada HU.
+ 
+### DEV 
+ 
+- Corrección de bugs reportados por QA.
+- Soporte en la preparación del entorno y datos de prueba.
+- Revisión conjunta de criterios de aceptación con QA antes de cada microsprint.
+
+## 9. Cronograma
+
+## 10. Entregables de Prueba
+ 
+### 10.1 Artefactos por microsprint
+ 
+| Entregable | Formato | Frecuencia |
+|------------|---------|------------|
+| Reporte de ejecución SerenityBDD | HTML (generado automático) | Por microsprint |
+| Reporte de ejecución Karate | HTML (generado automático) | Por microsprint |
+| Reporte de rendimiento k6 | JSON / HTML summary | Por microsprint (endpoints de consulta) |
+| Evidencia de pruebas exploratorias | Capturas de pantalla o video corto | Por HU explorada |
+| Reporte de bugs / incidencias |  GitHub Issues o md con el reporte| Continuo |
+ 
+### 10.2 Entregables finales del ciclo
+ 
+| Entregable | Descripción |
+|------------|-------------|
+| **Repositorio de pruebas funcionales** | Proyecto SerenityBDD + Cucumber con los `.feature` y steps. |
+| **Repositorio de pruebas de API** | Proyecto Karate con los `.feature` de contrato y validación de endpoints. Repositorio independiente. |
+| **Scripts de rendimiento** | Archivos `.js` de k6 para los escenarios de carga. Pueden vivir en el mismo repo de pruebas de API o en uno aparte. |
+| **Reporte consolidado de ejecución** | Reporte .md con: total de casos ejecutados, pasados, fallidos, bloqueados; defectos abiertos por severidad; cobertura por HU. |
+| 
+
+
 
 
 
