@@ -11,23 +11,23 @@
 
 | Bloque de Trabajo | SP Estimados | Horas Estimadas | Horas Reales | Desviación | Causa Principal |
 |:---|:---:|:---:|:---:|:---:|:---|
-| Integración `ms-authservice` + JWT | 5 | ~3.75 h | 3.5 h | -7% | Librería ya conocida |
-| Frontend – ajuste de rutas y guards | 3 | ~2.25 h | 2.0 h | -11% | Componentes reutilizados |
-| HU-001 a HU-005 (lógica de dominio) | 8 | ~6.0 h | 5.0 h | -17% | Flujo bien definido |
-| HU-006 – Gestión de Pólizas | 3 | ~2.25 h | 3.5 h | **+56%** | Validación de fechas más compleja |
-| HU-007 – Reclamos con foto | 5 | ~3.75 h | 6.0 h | **+60%** | Mock de fotos + validación de póliza |
-| Estrategia QA + TEST_PLAN.md | 3 | ~2.25 h | 3.0 h | +33% | Definir criterios tomó más iteraciones |
-| **TOTAL** | **27** | **~20 h** | **23 h** | **+15%** | |
+| Integración `ms-authservice` + JWT | 5 | ~3.75 h | 3.0 h | -20% | Librería ya conocida |
+| Frontend – ajuste de rutas y guards | 3 | ~2.25 h | 1.5 h | -33% | Componentes reutilizados |
+| HU-001 a HU-005 (lógica de dominio) | 13 | ~9.75 h | 4.5 h | -54% | Flujos implementados rápidamente |
+| HU-006 – Gestión de Pólizas | 2 | ~1.5 h | 1.0 h | -33% | Agilidad con repositorios |
+| HU-007 – Reclamos con foto | 5 | ~3.75 h | 1.0 h | -73% | Mocks rápidos y sencillos |
+| HU-009 – Reglas Deducible y Monto | 5 | ~3.75 h | 1.5 h | -60% | Lógica de evaluación directa |
+| HU-013 – Estado Asegurado | 3 | ~2.25 h | 1.5 h | -33% | Consultas sencillas |
+| Estrategia QA + TEST_PLAN.md | 3 | ~2.25 h | 2.5 h | +11% | Definir criterios tomó más iteraciones |
+| **TOTAL** | **39** | **~29.25 h** | **16.5 h** | **-44%** | |
 
 ---
 
 ## 2. ¿Qué tareas subestimamos y por qué?
 
-### HU-007 — Registro de Reclamos (+60% sobre lo estimado)
-Descubrimos que el mock del repositorio de fotos retornaba un falso positivo cuando la lista estaba vacía — un bug detectado gracias a los tests unitarios que habría llegado a integración sin detectarse. La complejidad de gestionar múltiples repositorios mockeados elevó el esfuerzo.
-
-### Estrategia de QA y TEST_PLAN.md (+33% sobre lo estimado)
+### Estrategia de QA y TEST_PLAN.md (+11% sobre lo estimado)
 Definir criterios de salida medibles y alinear las responsabilidades entre DEV y QA requirió más sesiones de trabajo de las previstas inicialmente.
+
 
 ---
 
