@@ -65,3 +65,20 @@
 | CP005-HU-005 | Registro con valor asegurado menor o igual a cero | `Dado` que el gestor está autenticado en el sistema `Cuando` registra una póliza "\<numero_poliza\>" `Y` vincula un asegurado y vehículo válidos `Y` ingresa valor asegurado "\<valor_invalido\>" y fechas de vigencia válidas `Y` confirma el registro `Entonces` el sistema notifica que el valor asegurado no es válido | El gestor está autenticado. Existen asegurado y vehículo válidos | **Ejemplos:** \| numero_poliza \| valor_invalido \| fecha_inicio \| fecha_fin \| \| POL-2026-003 \| 0 \| 01/06/2026 \| 31/05/2027 \| \| POL-2026-004 \| -5000 \| 01/06/2026 \| 31/05/2027 \| | 1. Acceder al módulo de pólizas 2. Seleccionar "Nueva Póliza" 3. Vincular asegurado y vehículo válidos 4. Ingresar valor asegurado inválido 5. Confirmar el registro | El sistema notifica que el valor asegurado no es válido y no se crea la póliza | Sin ejecutar | Sin ejecutar | Alto |
 
 ---
+
+## HU-006 – Consultar Pólizas
+
+**Como** gestor de seguros, **Quiero** consultar pólizas registradas y ver el detalle de una específica, **Para** verificar estado, vigencia y vehículo asociado.
+
+| ID | Nombre del Caso de Prueba | Escenario (Gherkin) | Precondiciones | Datos de Prueba | Pasos de Ejecución | Resultado Esperado | Resultado Obtenido | Estado | Prioridad |
+|---|---|---|---|---|---|---|---|---|---|
+| CP001-HU-006 | Visualización del listado de pólizas registradas | `Dado` que el gestor está autenticado en el sistema `Y` existen las pólizas "\<poliza_1\>" y "\<poliza_2\>" registradas `Cuando` consulta las pólizas registradas `Entonces` el sistema presenta un listado que contiene las pólizas "\<poliza_1\>" y "\<poliza_2\>" `Y` muestra número de póliza, asegurado, estado y fechas de vigencia | El gestor está autenticado. Existen pólizas registradas | **Ejemplos:** \| poliza_1 \| poliza_2 \| \| POL-2026-001 \| POL-2026-002 \| \| POL-2026-001 \| POL-2026-010 \| | 1. Acceder al módulo de pólizas 2. Consultar las pólizas registradas | El sistema presenta un listado mostrando número, asegurado, estado y fechas de vigencia | Sin ejecutar | Sin ejecutar | Alto |
+| CP002-HU-006 | Consulta del detalle de una póliza existente | `Dado` que el gestor está autenticado en el sistema `Y` existe la póliza "\<numero_poliza\>" vinculada al asegurado "\<asegurado\>" y al vehículo "\<vehiculo\>" `Cuando` busca la póliza "\<numero_poliza\>" `Entonces` el sistema muestra el detalle con número "\<numero_poliza\>", valor asegurado, fechas de vigencia, estado | El gestor está autenticado. Existe la póliza en el sistema | **Ejemplos:** \| numero_poliza \| asegurado \| vehiculo \| \| POL-2026-001 \| Juan Pérez \| Chevrolet Aveo - PBA-1234 \| \| POL-2026-010 \| María López \| Kia Rio - PBC-5678 \| | 1. Acceder al módulo de pólizas 2. Buscar la póliza por número 3. Seleccionar la póliza encontrada | El sistema muestra detalle completo con número, valor asegurado, fechas, estado, vehículo y asegurado | Sin ejecutar | Sin ejecutar | Alto |
+| CP003-HU-006 | Consulta de una póliza que no existe | `Dado` que el gestor está autenticado en el sistema `Cuando` intenta buscar la póliza "\<poliza_inexistente\>" que no existe en el sistema `Entonces` el sistema notifica que no se encontró ninguna póliza `Y` no se muestra información | El gestor está autenticado en el sistema | **Ejemplos:** \| poliza_inexistente \| \| POL-0000-000 \| \| POL-9999-999 \| | 1. Acceder al módulo de pólizas 2. Buscar póliza con el número indicado | El sistema notifica que no se encontró ninguna póliza y no se muestra información | Sin ejecutar | Sin ejecutar | Medio |
+
+---
+
+
+
+
+
