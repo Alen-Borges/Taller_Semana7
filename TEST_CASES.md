@@ -1,8 +1,5 @@
 # Matriz de Casos de Prueba – Evaluador Automatizado de Siniestros
 
-> **Nota:** Los campos "Resultado Obtenido" y "Estado" se registran como **"Sin ejecutar"** en este entregable documental, documentando el plan completo de pruebas.
-
----
 
 ## HU-001 – Registro de asegurado
 
@@ -18,4 +15,14 @@
 
 ---
 
+## HU-002 – Consultar Asegurados
 
+**Como** gestor de seguros, **Quiero** consultar asegurados registrados en el sistema, tanto en listado como en detalle individual, **Para** verificar su información antes de vincularlos a pólizas o vehículos.
+
+| ID | Nombre del Caso de Prueba | Escenario (Gherkin) | Precondiciones | Datos de Prueba | Pasos de Ejecución | Resultado Esperado | Resultado Obtenido | Estado | Prioridad |
+|---|---|---|---|---|---|---|---|---|---|
+| CP001-HU-002 | Visualización del listado con asegurados registrados | `Dado` que el gestor está autenticado en el sistema `Y` existen los asegurados "\<asegurado_1\>" (ID: "\<id_1\>") y "\<asegurado_2\>" (ID: "\<id_2\>") registrados `Cuando` consulta "Asegurados" `Entonces` el sistema presenta un listado que contiene al menos a "\<asegurado_1\>" y "\<asegurado_2\>" `Y` cada fila muestra nombre, apellido e identificación | El gestor está autenticado. Existen asegurados registrados | **Ejemplos:** \| asegurado_1 \| id_1 \| asegurado_2 \| id_2 \| \| Juan Pérez \| 1712345678 \| María López \| 1798765432 \| \| Carlos Ruiz \| 0501234567 \| Ana Torres \| 1723456789 \| | 1. Acceder al módulo de asegurados 2. Consultar el listado de asegurados | El sistema presenta un listado con los asegurados registrados mostrando nombre, apellido e identificación | Sin ejecutar | Sin ejecutar | Alto |
+| CP002-HU-002 | Consulta del detalle de un asegurado existente | `Dado` que el gestor está autenticado en el sistema `Y` existe el asegurado "\<nombre\> \<apellido\>" con identificación "\<identificacion\>" `Cuando` busca al asegurado con identificación "\<identificacion\>" `Entonces` el sistema muestra el detalle con nombre "\<nombre\>", apellido "\<apellido\>", identificación "\<identificacion\>", dirección, teléfono y correo electrónico | El gestor está autenticado. Existe el asegurado en el sistema | **Ejemplos:** \| nombre \| apellido \| identificacion \| \| Juan \| Pérez \| 1712345678 \| \| María \| López \| 1798765432 \| \| Carlos \| Ruiz \| 0501234567 \| | 1. Acceder al módulo de asegurados 2. Buscar asegurado por identificación 3. Seleccionar el asegurado encontrado | El sistema muestra el detalle con nombre, apellido, identificación, dirección, teléfono y correo electrónico | Sin ejecutar | Sin ejecutar | Alto |
+| CP003-HU-002 | Consulta de un asegurado que no existe | `Dado` que el gestor está autenticado en el sistema `Cuando` intenta buscar un asegurado con identificación "\<identificacion_inexistente\>" que no existe en el sistema `Entonces` el sistema notifica que no se encontró ningún asegurado | El gestor está autenticado en el sistema | **Ejemplos:** \| identificacion_inexistente \| \| 0000000000 \| \| 9999999999 \| | 1. Acceder al módulo de asegurados 2. Buscar asegurado con la identificación indicada | El sistema notifica que no se encontró ningún asegurado y no se muestra información parcial | Sin ejecutar | Sin ejecutar | Medio |
+
+---
