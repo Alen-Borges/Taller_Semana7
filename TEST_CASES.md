@@ -40,3 +40,16 @@
 
 ---
 
+## HU-004 – Consultar Vehículos
+
+**Como** gestor de seguros, **Quiero** consultar la lista de vehículos y ver el detalle de uno específico, **Para** verificar datos antes de asociar una póliza.
+
+| ID | Nombre del Caso de Prueba | Escenario (Gherkin) | Precondiciones | Datos de Prueba | Pasos de Ejecución | Resultado Esperado | Resultado Obtenido | Estado | Prioridad |
+|---|---|---|---|---|---|---|---|---|---|
+| CP001-HU-004 | Visualización del listado de vehículos registrados | `Dado` que el gestor está autenticado en el sistema `Y` existen los vehículos "\<vehiculo_1\>" (placa: "\<placa_1\>") y "\<vehiculo_2\>" (placa: "\<placa_2\>") registrados `Cuando` consulta "Vehículos" `Entonces` el sistema muestra un listado que contiene "\<vehiculo_1\>" y "\<vehiculo_2\>" `Y` cada fila muestra marca, modelo, año y placa | El gestor está autenticado. Existen vehículos registrados | **Ejemplos:** \| vehiculo_1 \| placa_1 \| vehiculo_2 \| placa_2 \| \| Chevrolet Aveo \| PBA-1234 \| Kia Rio \| PBC-5678 \| \| Toyota Corolla \| PCE-9012 \| Nissan Sentra \| PCD-3456 \| | 1. Acceder al módulo de vehículos 2. Consultar el listado de vehículos | El sistema muestra un listado con marca, modelo, año y placa de cada vehículo | Sin ejecutar | Sin ejecutar | Alto |
+| CP002-HU-004 | Consulta del detalle de un vehículo existente | `Dado` que el gestor está autenticado en el sistema `Y` existe el vehículo "\<marca\> \<modelo\>" con placa "\<placa\>" `Cuando` busca información sobre el vehículo con placa "\<placa\>" `Entonces` el sistema muestra el detalle con marca "\<marca\>", modelo "\<modelo\>", año "\<anio\>" y placa "\<placa\>" | El gestor está autenticado. Existe el vehículo en el sistema | **Ejemplos:** \| marca \| modelo \| anio \| placa \| \| Chevrolet \| Aveo \| 2022 \| PBA-1234 \| \| Kia \| Rio \| 2023 \| PBC-5678 \| | 1. Acceder al módulo de vehículos 2. Buscar vehículo por placa 3. Seleccionar el vehículo encontrado | El sistema muestra el detalle completo del vehículo | Sin ejecutar | Sin ejecutar | Alto |
+| CP003-HU-004 | Consulta de un vehículo que no existe | `Dado` que el gestor está autenticado en el sistema `Cuando` consulta un vehículo con placa "\<placa_inexistente\>" que no existe en el sistema `Entonces` el sistema notifica que no se encontró ningún vehículo `Y` no se muestra información | El gestor está autenticado en el sistema | **Ejemplos:** \| placa_inexistente \| \| ZZZ-0000 \| \| AAA-9999 \| | 1. Acceder al módulo de vehículos 2. Buscar vehículo con la placa indicada | El sistema notifica que no se encontró ningún vehículo y no se muestra información | Sin ejecutar | Sin ejecutar | Medio |
+
+---
+
+
