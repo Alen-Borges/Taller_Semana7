@@ -12,11 +12,18 @@ import EmptyState from '../../components/ui/EmptyState'
 import Badge from '../../components/ui/Badge'
 
 function PolizaForm({ onSubmit, loading, asegurados, vehiculos }) {
-  const { register, handleSubmit, formState: { errors } } = useForm()
-  const today = new Date().toISOString().split('T')[0]
+  const { register, handleSubmit, formState: { errors }, setError } = useForm()
+
+  const onFormSubmit = (formData) => {
+    if (formData.vigenciaFin <= formData.vigenciaInicio) {
+      setError('vigenciaFin', { message: 'La fecha fin debe ser posterior al inicio' })
+      return
+    }
+    onSubmit(formData)
+  }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+    <form onSubmit={handleSubmit(onFormSubmit)} className="space-y-4">
       <div>
         <label className="form-label">Número de Póliza *</label>
         <input className={`form-input ${errors.numero ? 'error' : ''}`} placeholder="POL-2026-001"
@@ -61,7 +68,7 @@ function PolizaForm({ onSubmit, loading, asegurados, vehiculos }) {
         </div>
         <div>
           <label className="form-label">Vigencia Fin *</label>
-          <input type="date" className={`form-input ${errors.vigenciaFin ? 'error' : ''}`} min={today}
+          <input type="date" className={`form-input ${errors.vigenciaFin ? 'error' : ''}`}
             {...register('vigenciaFin', { required: 'Requerido' })} />
           {errors.vigenciaFin && <p className="form-error">{errors.vigenciaFin.message}</p>}
         </div>
