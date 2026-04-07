@@ -18,15 +18,24 @@
 | HU-007 – Reclamos con foto | 5 | ~3.75 h | 1.0 h | -73% | Mocks rápidos y sencillos |
 | HU-009 – Reglas Deducible y Monto | 5 | ~3.75 h | 1.5 h | -60% | Lógica de evaluación directa |
 | HU-013 – Estado Asegurado | 3 | ~2.25 h | 1.5 h | -33% | Consultas sencillas |
-| Estrategia QA + TEST_PLAN.md | 3 | ~2.25 h | 2.5 h | +11% | Definir criterios tomó más iteraciones |
-| **TOTAL** | **39** | **~29.25 h** | **16.5 h** | **-44%** | |
+| Estrategia QA + TEST_PLAN.md | 3 | ~3.0 h | 4.0 h | +33% | Definir criterios tomó más iteraciones |
+| **TOTAL** | **39** | **~30.0 h** | **18.0 h** | **-40%** | |
+
+### Desglose — Pruebas Automatizadas QA
+
+| Suite de Pruebas | Horas Estimadas | Horas Reales | Desviación |
+|:---|:---:|:---:|:---:|
+| Pruebas de API — Karate Framework | 5.0 h | 3.0 h | -40% |
+| Pruebas E2E — Serenity BDD (Screenplay) | 5.0 h | 4.0 h | -20% |
+| Pruebas de Rendimiento — k6 | 4.0 h | 2.0 h | -50% |
+| **TOTAL Pruebas** | **14.0 h** | **9.0 h** | **-36%** |
 
 ---
 
 ## 2. ¿Qué tareas subestimamos y por qué?
 
-### Estrategia de QA y TEST_PLAN.md (+11% sobre lo estimado)
-Definir criterios de salida medibles y alinear las responsabilidades entre DEV y QA requirió más sesiones de trabajo de las previstas inicialmente.
+### Estrategia de QA y TEST_PLAN.md (+33% sobre lo estimado)
+Se estimaron 3 horas para la definición de la estrategia de pruebas, pero la ejecución real tomó 4 horas. Definir criterios de salida medibles, diseñar los casos de prueba BDD y alinear las responsabilidades entre DEV y QA requirió más iteraciones de revisión de las previstas inicialmente.
 
 
 ---
