@@ -24,12 +24,14 @@ Está construido en un ecosistema de microservicios usando **Spring Boot** para 
 Cumpliendo con la rúbrica de evaluación del Taller Semana 7, centralizamos aquí todos los artefactos generados en la dinámica de *Micro-Sprints*:
 
 1. 📌 **Tablero Ágil:** https://github.com/users/Alen-Borges/projects/4
-2. 🤖 **Repositorio Pruebas Karate (Fase 4):** https://github.com/JeanVillacis/Taller_Semana7_Karate.git
-3. ⏱️ **Retrospectiva & Time-Tracking:** [`REALITY_CHECK.md`](./REALITY_CHECK.md) *(Documento de contrastación de Story Points vs Realidad)*
-4. 📋 **Plan de Pruebas Formal:** [`TEST_PLAN.md`](./TEST_PLAN.md)
-5. 🧪 **Matriz de Casos BDD:** [`TEST_CASES.md`](./TEST_CASES.md)
-
+2. ⏱️ **Retrospectiva & Time-Tracking:** [`REALITY_CHECK.md`](./REALITY_CHECK.md) *(Documento de contrastación de Story Points vs Realidad)*
+3. 📋 **Plan de Pruebas Formal:** [`TEST_PLAN.md`](./TEST_PLAN.md)
+4. 🧪 **Matriz de Casos BDD:** [`TEST_CASES.md`](./TEST_CASES.md)
+5. 🤖 **Repositorio Pruebas Karate:** (enlace pendiente)
+6. 🤖 **Repositorio Pruebas Screenplay Serenity BDD:** https://github.com/JeanVillacis/Semena7_Serenity
+7. 🤖 **Repositorio Pruebas Rendimiento:** https://github.com/JeanVillacis/Semana7_PruebasK6
 ---
+
 
 ## 🏗️ Arquitectura del MVP
 
@@ -71,6 +73,30 @@ El MVP excluye por priorización estratégica (Time-to-Market) las vistas y reso
 2. **Entidades Base**: Registrar/Consultar vehículo, asegurado y pólizas vía `ms-coreservice`.
 3. **Registro de Reclamo**: Emitir póliza y enviar fotos del incidente para recibir un Tracking Number y evaluación inicial del deducible vía el motor de reglas en `ms-evaluacion`.
 4. **Consulta**: Usar el endpoint de estado de reclamo del asegurado simulando un polling de resolución rápida.
+
+---
+
+
+## 🧪 Estrategia de Pruebas — Cobertura QA
+
+Como parte de la estrategia de calidad definida desde el inicio del proyecto (*Shift-Left Testing*), se implementaron **tres capas de pruebas automatizadas** que cubren distintos niveles del stack:
+
+### 1. 🔗 Pruebas de API — Karate Framework
+Pruebas funcionales de integración sobre los endpoints REST del API Gateway, validando contratos, autenticación JWT, flujos de negocio completos y manejo de errores.
+- Repositorio: *(enlace pendiente)*
+- Incluye: escenarios BDD en `.feature`, reportes HTML generados por Karate.
+
+### 2. 🎭 Pruebas E2E — Serenity BDD (Screenplay Pattern)
+Pruebas de aceptación automatizadas sobre la interfaz web usando el patrón Screenplay con Serenity BDD, validando los flujos críticos desde la perspectiva del usuario final (Login, registro de reclamo, consulta de estado).
+- Repositorio: https://github.com/JeanVillacis/Semena7_Serenity
+- Incluye: informe Serenity con narrativa BDD, capturas de pantalla, trazabilidad de historias de usuario y estadísticas de cobertura.
+
+### 3. ⚡ Pruebas de Rendimiento — k6
+Pruebas de carga y estrés sobre los endpoints más críticos del sistema, evaluando tiempos de respuesta, throughput y comportamiento bajo concurrencia.
+- Repositorio: https://github.com/JeanVillacis/Semana7_PruebasK6
+- Incluye: scripts k6, umbrales de aceptación definidos, resumen de métricas (p95, RPS, tasa de error).
+
+> **Nota para el evaluador:** Cada repositorio de pruebas contiene su propio `README` con instrucciones de ejecución e interpretación de resultados. Los informes generados se encuentran disponibles dentro de cada repositorio bajo la carpeta `target/site/serenity/` (Serenity) y como salida de consola/exportación JSON (k6).
 
 ---
 
