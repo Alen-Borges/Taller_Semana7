@@ -27,7 +27,7 @@ Cumpliendo con la rúbrica de evaluación del Taller Semana 7, centralizamos aqu
 2. ⏱️ **Retrospectiva & Time-Tracking:** [`REALITY_CHECK.md`](./REALITY_CHECK.md) *(Documento de contrastación de Story Points vs Realidad)*
 3. 📋 **Plan de Pruebas Formal:** [`TEST_PLAN.md`](./TEST_PLAN.md)
 4. 🧪 **Matriz de Casos BDD:** [`TEST_CASES.md`](./TEST_CASES.md)
-5. 🤖 **Repositorio Pruebas Karate:** (enlace pendiente)
+5. 🤖 **Repositorio Pruebas Karate:** https://github.com/JeanVillacis/Semana7_PruebasKarate
 6. 🤖 **Repositorio Pruebas Screenplay Serenity BDD:** https://github.com/JeanVillacis/Semena7_Serenity
 7. 🤖 **Repositorio Pruebas Rendimiento:** https://github.com/JeanVillacis/Semana7_PruebasK6
 ---
@@ -83,7 +83,7 @@ Como parte de la estrategia de calidad definida desde el inicio del proyecto (*S
 
 ### 1. 🔗 Pruebas de API — Karate Framework
 Pruebas funcionales de integración sobre los endpoints REST del API Gateway, validando contratos, autenticación JWT, flujos de negocio completos y manejo de errores.
-- Repositorio: *(enlace pendiente)*
+- Repositorio: https://github.com/JeanVillacis/Semana7_PruebasKarate
 - Incluye: escenarios BDD en `.feature`, reportes HTML generados por Karate.
 
 ### 2. 🎭 Pruebas E2E — Serenity BDD (Screenplay Pattern)
